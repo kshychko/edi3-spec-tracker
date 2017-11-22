@@ -5,4 +5,4 @@ services:
     image: edi3-spec-tracker:latest
     container_name: edi3-spec-tracker
     ports:
-      - "3032:3000"
+      - "3034:3000"
