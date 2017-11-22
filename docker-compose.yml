@@ -1,0 +1,8 @@
+version: '2'
+services:
+  web:
+    build: .
+    image: edi3-spec-tracker:latest
+    container_name: edi3-spec-tracker
+    ports:
+      - "3032:3000"
