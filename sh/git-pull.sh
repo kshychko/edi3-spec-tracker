@@ -28,7 +28,7 @@ fi
 
 
 ## declare an array variable
-REPO_NAMES=("edi3-billing" "edi3-ordering" "edi3-dcl" "edi3-dcp" "edi3-idp" "edi3-nry" "edi3-json" "edi3-code" "edi3-tap" "edi3-tap-gw")
+REPO_NAMES=("edi3-finance" "edi3-methodology" "edi3-rdp" "edi3-regulatory" "edi3-trade" "edi3-transport")
 
 ## now loop through the above array
 for i in "${REPO_NAMES[@]}"

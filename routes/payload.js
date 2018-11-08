@@ -60,8 +60,7 @@ router.post('/', function (req, res, next) {
     }
 });
 
-var repoNames = ["edi3.github.io", "edi3-billing", "edi3-dcl", "edi3-dcp", "edi3-idp", "edi3-nry",
-    "edi3-ordering", "edi3-json", "edi3-tap", "edi3-tap-gw", "edi3-code"];
+var repoNames = ["edi3.github.io", "edi3-finance", "edi3-methodology", "edi3-rdp", "edi3-regulatory", "edi3-trade", "edi3-transport"];
 
 var baseDir = '/opt/'
  /*var baseDir = 'd://work/aus-tp-github/'*/
@@ -176,7 +175,7 @@ function processAPI() {
 
                 var copyFrom = baseFromPath;
                 var files = fs.readdirSync(copyFrom);
-
+/* 
                 for (var k = 0; k < files.length; k++) {
                     var file = files[k];
                     if (file == "swagger.yaml") {
@@ -272,7 +271,7 @@ function processAPI() {
                             }
                         })(repoName));
                     }
-                }
+                } */
             }
         }
     }
