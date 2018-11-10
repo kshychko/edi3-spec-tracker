@@ -16,6 +16,7 @@ ENV APP_HOME /src
 ENV HOME /root
 RUN mkdir /opt
 RUN mkdir $APP_HOME
+RUN npm config set unsafe-perm true
 RUN npm install yamljs -g --silent
 RUN npm install swagger2aglio -g --silent
 RUN npm install forever -g --silent
