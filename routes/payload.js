@@ -60,7 +60,10 @@ router.post('/', function (req, res, next) {
     }
 });
 
-var repoNames = ["edi3.github.io", "edi3-finance", "edi3-methodology", "edi3-rdp", "edi3-regulatory", "edi3-trade", "edi3-transport"];
+var repoNames = ["edi3.github.io", "edi3-api-conformance", "edi3-api-ndr", "edi3-description", "edi3-discovery", 
+            "edi3-events", "edi3-finance", "edi3-identity", "edi3-json-ld-ndr", 
+            "edi3-model-interchange", "edi3-notary", "edi3-regulatory", "edi3-trade",
+            "edi3-transport", "edi3-uml-profile", "edi3-unlocode"];
 
 var baseDir = '/opt/'
  /*var baseDir = 'd://work/aus-tp-github/'*/
