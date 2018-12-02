@@ -78,10 +78,17 @@ function gitPullNextRepo(index) {
         .then(function () {
             logger.error('Starting pull... ' + repoName);
         })
-        .pull(function (err, update) {
+        .tags(function (err, tags) {
+            for (var i; i < tags.length; i++){
+                require('simple-git')(baseDir + repoName+'/docs/'+tags[i])
+                    .pull(function (err, update){
+                        logger.error(repoName + ' tag ' + tags[i] +' checkout done.');
+                    })
+            }
+
             logger.error('repoName ' + repoName + ' was updated')
         }).then(function () {
-        logger.error(repoName + ' pull done.');
+
         if (index + 1 < repoNames.length) {
             gitPullNextRepo(index + 1)
         } else {

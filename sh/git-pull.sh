@@ -40,12 +40,22 @@ do
 
 	if [ -d "$i" ]; then
 		cd /opt/$i
-		git pull origin master
-		RESULT=$?
-		if [[ ${RESULT} -ne 0 ]]; then
-			echo -e "\nCan't pull ${i} repo"
-			exit
-		fi
+		mkdir docs
+		cd docs
+		git fetch --tags
+		TAGS=$(git tag -l)
+        for tag in "${TAGS[@]}"
+        do
+            mkdir ${tag}
+            cd ${tag}
+            git checkout ${tag}
+            RESULT=$?
+            if [[ ${RESULT} -ne 0 ]]; then
+                echo -e "\nCan't pull ${i} repo"
+                exit
+            fi
+            cd ..
+		done
 #		else
 #		git clone $i
 	fi
@@ -56,7 +66,7 @@ do
 
 	mkdir $i
 
-	cp -rf /opt/$i/docs/. /opt/$TARGET_REPO_NAME/specs/$i
+	cp -rf /opt/$i/docs/. /opt/$TARGET_REPO_NAME/specs/$i/
 done
 
 
