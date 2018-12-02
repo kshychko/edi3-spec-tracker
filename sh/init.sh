@@ -5,22 +5,19 @@ ssh-add ~/.ssh/id_rsa
 ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts
 
 cd /opt
-git clone git@github.com:edi3/edi3.github.io.git
-git clone git@github.com:edi3/edi3-api-conformance.git
-git clone git@github.com:edi3/edi3-api-ndr.git
-git clone git@github.com:edi3/edi3-description.git
-git clone git@github.com:edi3/edi3-discovery.git
-git clone git@github.com:edi3/edi3-events.git
-git clone git@github.com:edi3/edi3-finance.git
-git clone git@github.com:edi3/edi3-identity.git
-git clone git@github.com:edi3/edi3-json-ld-ndr.git
-git clone git@github.com:edi3/edi3-model-interchange.git
-git clone git@github.com:edi3/edi3-notary.git
-git clone git@github.com:edi3/edi3-regulatory.git
-git clone git@github.com:edi3/edi3-trade.git
-git clone git@github.com:edi3/edi3-transport.git
-git clone git@github.com:edi3/edi3-uml-profile.git
-git clone git@github.com:edi3/edi3-unlocode.git
+mkdir tags
+REPO_NAMES=("edi3.github.io" "edi3-api-conformance" "edi3-api-ndr" "edi3-description" "edi3-discovery" 
+            "edi3-events" "edi3-finance" "edi3-identity" "edi3-json-ld-ndr" 
+            "edi3-model-interchange" "edi3-notary" "edi3-regulatory" "edi3-trade"
+            "edi3-transport" "edi3-uml-profile" "edi3-unlocode")
+
+## now loop through the above array
+for i in "${REPO_NAMES[@]}"
+do
+git clone git@github.com:edi3/${i}.git
+mkdir tags/${i}
+done
+
 cp -rf /opt/edi3.github.io/. /srv/jekyll
 cd /srv/jekyll
 BUNDLE_SPECIFIC_PLATFORM=true bundle install
