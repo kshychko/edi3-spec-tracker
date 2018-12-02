@@ -82,12 +82,16 @@ function gitPullNextRepo(index) {
             logger.error("Latest available tag: %s", tags.latest);
             for (var i; i < tags.length; i++){
                 require('simple-git')(baseDir + repoName)
-                    .clone(repoName, +tags[i]).then(function () {
-                    require('simple-git')(baseDir + repoName + '/' + tags[i])
-                        .checkout(tags[i]).then(function () {
-                        logger.error('Checked out... ' + repoName  + ' tag ' + tags[i]);
+                    .clone(repoName, tags[i])
+                    .then(function () {
+                        require('simple-git')(baseDir + repoName + '/' + tags[i])
+                            .checkout(tags[i]).then(function () {
+                            logger.error('Checked out... ' + repoName  + ' tag ' + tags[i]);
+                        })
                     })
-                })
+                    .catch(function (err) {
+                        logger.error('Error when cloning ' + err);
+                    })
             }
 
             logger.error('repoName ' + repoName + ' was updated')
