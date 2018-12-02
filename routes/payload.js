@@ -83,25 +83,22 @@ function gitPullNextRepo(index) {
                 logger.error("Processing tag: %s", tags.all[i]);
                 require('simple-git')(baseDir + '/tags/' + repoName)
                     .clone('git@github.com:edi3/' + repoName + '.git', tags.all[i], function () {
-                         logger.error('Cloned ' + repoName + ' into ' + tags.all[i]);
-                    })
-                    .then(function () {
+                        logger.error('Cloned ' + repoName + ' into ' + tags.all[i]);
                         require('simple-git')(baseDir + '/tags/' + repoName + '/' + tags.all[i])
                             .checkout(tags.all[i]).then(function () {
                             logger.error('Checked out... ' + repoName  + ' tag ' + tags.all[i]);
                         })
                     })
+                    .then(function () {
+                        if (index + 1 < repoNames.length) {
+                            gitPullNextRepo(index + 1)
+                        } else {
+                            cleanUpSpecs(1);
+                        }
+                    })
             }
-
             logger.error('repoName ' + repoName + ' was updated')
-        }).then(function () {
-
-        if (index + 1 < repoNames.length) {
-            gitPullNextRepo(index + 1)
-        } else {
-            cleanUpSpecs(1);
-        }
-    });
+        });
 }
 
 function cleanUpSpecs(index) {
@@ -123,7 +120,7 @@ function copyFromDocs(index) {
     var repoName = repoNames[index];
 
     logger.error('about to copy ' + baseDir + repoNames[0] + '/specs/' + repoName)
-    fse.copySync(baseDir + repoName + '/docs',
+    fse.copySync(baseDir + '/tags/' + repoName + '/docs',
         baseDir + repoNames[0] + '/specs/' + repoName);
 
     if (index + 1 < repoNames.length) {
