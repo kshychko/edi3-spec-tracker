@@ -79,6 +79,13 @@ function gitPullNextRepo(index) {
             logger.error('Starting pull... ' + repoName);
         })
         .tags(function (err, tags) {
+            if(tags.all.length == 0) {
+                if (index + 1 < repoNames.length) {
+                            gitPullNextRepo(index + 1)
+                        } else {
+                            cleanUpSpecs(1);
+                        }
+            }
             for (var i=0; i < tags.all.length; i++){
                 logger.error("Processing tag: %s", tags.all[i]);
                 require('simple-git')(baseDir + '/tags/' + repoName)
@@ -89,7 +96,7 @@ function gitPullNextRepo(index) {
                             logger.error('Checked out... ' + repoName  + ' tag ' + tags.all[i]);
                         })
                     })
-                    .then(function () {
+                    .exec(function () {
                         if (index + 1 < repoNames.length) {
                             gitPullNextRepo(index + 1)
                         } else {
