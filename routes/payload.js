@@ -79,6 +79,7 @@ function gitPullNextRepo(index) {
             logger.error('Starting pull... ' + repoName);
         })
         .tags(function (err, tags) {
+            logger.error("Latest available tag: %s", tags.latest);
             for (var i; i < tags.length; i++){
                 require('simple-git')(baseDir + repoName+'/docs/'+tags[i])
                     .pull(function (err, update){
