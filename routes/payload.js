@@ -82,7 +82,7 @@ function gitPullNextRepo(index) {
             logger.error("Latest available tag: %s", tags.latest);
             for (var i=0; i < tags.all.length; i++){
                 logger.error("Processing tag: %s", tags.all[i]);
-                require('simple-git')(baseDir + repoName)
+                require('simple-git')(baseDir)
                     .clone(repoName, tags.all[i])
                     .then(function () {
                         require('simple-git')(baseDir + repoName + '/' + tags.all[i])
