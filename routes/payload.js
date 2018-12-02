@@ -80,14 +80,14 @@ function gitPullNextRepo(index) {
         })
         .tags(function (err, tags) {
             logger.error("Latest available tag: %s", tags.latest);
-            for (var i=0; i < tags.length; i++){
-                logger.error("Processing tag: %s", tags[i]);
+            for (var i=0; i < tags.all.length; i++){
+                logger.error("Processing tag: %s", tags.all[i]);
                 require('simple-git')(baseDir + repoName)
-                    .clone(repoName, tags[i])
+                    .clone(repoName, tags.all[i])
                     .then(function () {
-                        require('simple-git')(baseDir + repoName + '/' + tags[i])
-                            .checkout(tags[i]).then(function () {
-                            logger.error('Checked out... ' + repoName  + ' tag ' + tags[i]);
+                        require('simple-git')(baseDir + repoName + '/' + tags.all[i])
+                            .checkout(tags.all[i]).then(function () {
+                            logger.error('Checked out... ' + repoName  + ' tag ' + tags.all[i]);
                         })
                     })
                     .catch(function (err) {
