@@ -81,10 +81,13 @@ function gitPullNextRepo(index) {
         .tags(function (err, tags) {
             logger.error("Latest available tag: %s", tags.latest);
             for (var i; i < tags.length; i++){
-                require('simple-git')(baseDir + repoName+'/docs/'+tags[i])
-                    .pull(function (err, update){
-                        logger.error(repoName + ' tag ' + tags[i] +' checkout done.');
+                require('simple-git')(baseDir + repoName)
+                    .clone(repoName, +tags[i]).then(function () {
+                    require('simple-git')(baseDir + repoName + '/' + tags[i])
+                        .checkout(tags[i]).then(function () {
+                        logger.error('Checked out... ' + repoName  + ' tag ' + tags[i]);
                     })
+                })
             }
 
             logger.error('repoName ' + repoName + ' was updated')

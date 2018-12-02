@@ -15,7 +15,7 @@
     "serve-favicon": "~2.3.0",
     "log4js": "~1.1.0",
     "fs-extra": "~2.1.2",
-    "simple-git": "~1.67.0",
+    "simple-git": "~1.107.0",
     "deref": "~0.7.0",
     "sync-exec": "~0.6.2",
     "node-slack": "~0.0.7",
