@@ -82,7 +82,7 @@ function gitPullNextRepo(index) {
             for (var i=0; i < tags.all.length; i++){
                 logger.error("Processing tag: %s", tags.all[i]);
                 require('simple-git')(baseDir + '/tags/' + repoName)
-                    .clone(repoName, tags.all[i], function () {
+                    .clone('git@github.com:edi3/' + repoName + '.git', tags.all[i], function () {
                          logger.error('Cloned ' + repoName + ' into ' + tags.all[i]);
                     })
                     /*.then(function () {
