@@ -86,26 +86,27 @@ function gitPullNextRepo(index) {
                             cleanUpSpecs(1);
                         }
             }
-            for (var i=0; i < tags.all.length; i++){
-                logger.error("Processing tag: %s", tags.all[i]);
-                require('simple-git')(baseDir + '/tags/' + repoName)
-                    .clone('git@github.com:edi3/' + repoName + '.git', tags.all[i], function () {
-                        logger.error('Cloned ' + repoName + ' into ' + tags.all[i]);
-                        require('simple-git')(baseDir + '/tags/' + repoName + '/' + tags.all[i])
-                            .checkout(tags.all[i]).then(function () {
-                            logger.error('Checked out... ' + repoName  + ' tag ' + tags.all[i]);
-                        })
-                    })
-                    .exec(function () {
-                        if (index + 1 < repoNames.length) {
-                            gitPullNextRepo(index + 1)
-                        } else {
-                            cleanUpSpecs(1);
-                        }
-                    })
-            }
+            checkoutTag(tags, 0)
             logger.error('repoName ' + repoName + ' was updated')
         });
+}
+
+function checkoutTag(tags, i) {
+    logger.error("Processing tag: %s", tags.all[i]);
+    require('simple-git')(baseDir + '/tags/' + repoName)
+        .clone('git@github.com:edi3/' + repoName + '.git', tags.all[i], function () {
+            logger.error('Cloned ' + repoName + ' into ' + tags.all[i]);
+        })
+        .exec(
+            require('simple-git')(baseDir + '/tags/' + repoName + '/' + tags.all[i])
+                .checkout(tags.all[i]).then(function () {
+                logger.error('Checked out... ' + repoName  + ' tag ' + tags.all[i]);
+                if(i+1 < tags.all.length) {
+                    checkoutTag(tags, i + 1)
+                }
+            })
+        )
+
 }
 
 function cleanUpSpecs(index) {
