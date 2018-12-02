@@ -90,9 +90,6 @@ function gitPullNextRepo(index) {
                             logger.error('Checked out... ' + repoName  + ' tag ' + tags.all[i]);
                         })
                     })
-                    .catch(function (err) {
-                        logger.error('Error when cloning ' + err);
-                    })
             }
 
             logger.error('repoName ' + repoName + ' was updated')
