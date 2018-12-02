@@ -79,13 +79,12 @@ function gitPullNextRepo(index) {
             logger.error('Starting pull... ' + repoName);
         })
         .tags(function (err, tags) {
-            logger.error("Latest available tag: %s", tags.latest);
             for (var i=0; i < tags.all.length; i++){
                 logger.error("Processing tag: %s", tags.all[i]);
-                require('simple-git')(baseDir)
+                require('simple-git')(baseDir + '/tags/' + repoName)
                     .clone(repoName, tags.all[i])
                     .then(function () {
-                        require('simple-git')(baseDir + repoName + '/' + tags.all[i])
+                        require('simple-git')(baseDir + '/tags/' + repoName + '/' + tags.all[i])
                             .checkout(tags.all[i]).then(function () {
                             logger.error('Checked out... ' + repoName  + ' tag ' + tags.all[i]);
                         })
