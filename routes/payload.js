@@ -85,12 +85,12 @@ function gitPullNextRepo(index) {
                     .clone('git@github.com:edi3/' + repoName + '.git', tags.all[i], function () {
                          logger.error('Cloned ' + repoName + ' into ' + tags.all[i]);
                     })
-                    /*.then(function () {
+                    .then(function () {
                         require('simple-git')(baseDir + '/tags/' + repoName + '/' + tags.all[i])
                             .checkout(tags.all[i]).then(function () {
                             logger.error('Checked out... ' + repoName  + ' tag ' + tags.all[i]);
                         })
-                    })*/
+                    })
             }
 
             logger.error('repoName ' + repoName + ' was updated')
