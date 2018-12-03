@@ -102,7 +102,7 @@ function checkoutTag(tags, i, repoName) {
                 .checkout(tags.all[i]).then(function () {
                 logger.error('Checked out... ' + repoName  + ' tag ' + tags.all[i]);
                 if(i+1 < tags.all.length) {
-                    checkoutTag(tags, i + 1)
+                    checkoutTag(tags, i + 1, repoName)
                 }
             })
         })
