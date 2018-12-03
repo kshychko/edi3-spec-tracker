@@ -85,9 +85,10 @@ function gitPullNextRepo(index) {
                         } else {
                             cleanUpSpecs(1);
                         }
+            } else {
+                checkoutTag(tags, 0)
+                logger.error('repoName ' + repoName + ' was updated')
             }
-            checkoutTag(tags, 0)
-            logger.error('repoName ' + repoName + ' was updated')
         });
 }
 
