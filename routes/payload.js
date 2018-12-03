@@ -86,13 +86,13 @@ function gitPullNextRepo(index) {
                             cleanUpSpecs(1);
                         }
             } else {
-                checkoutTag(tags, 0, repoName)
+                checkoutTag(tags, 0, repoName, index)
                 logger.error('repoName ' + repoName + ' was updated')
             }
         });
 }
 
-function checkoutTag(tags, i, repoName) {
+function checkoutTag(tags, i, repoName, index) {
     logger.error("Processing tag: %s", tags.all[i]);
     require('simple-git')(baseDir + '/tags/' + repoName)
         .clone('git@github.com:edi3/' + repoName + '.git', tags.all[i], function () {
@@ -102,7 +102,9 @@ function checkoutTag(tags, i, repoName) {
                 .checkout(tags.all[i]).then(function () {
                 logger.error('Checked out... ' + repoName  + ' tag ' + tags.all[i]);
                 if(i+1 < tags.all.length) {
-                    checkoutTag(tags, i + 1, repoName)
+                    checkoutTag(tags, i + 1, repoName, index)
+                } else {
+                    gitPullNextRepo(index + 1)
                 }
             })
         })
