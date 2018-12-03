@@ -64,6 +64,7 @@ var repoNames = ["edi3.github.io", "edi3-api-conformance", "edi3-api-ndr", "edi3
             "edi3-events", "edi3-finance", "edi3-identity", "edi3-json-ld-ndr", 
             "edi3-model-interchange", "edi3-notary", "edi3-regulatory", "edi3-trade",
             "edi3-transport", "edi3-uml-profile", "edi3-unlocode"];
+var mainRepo = "edi3.github.io"
 
 var baseDir = '/opt/'
  /*var baseDir = 'd://work/aus-tp-github/'*/
@@ -81,10 +82,10 @@ function gitPullNextRepo(index) {
         .tags(function (err, tags) {
             if(tags.all.length == 0) {
                 if (index + 1 < repoNames.length) {
-                            gitPullNextRepo(index + 1)
-                        } else {
-                            cleanUpSpecs(1);
-                        }
+                    gitPullNextRepo(index + 1)
+                } else {
+                    cleanUpSpecs(1);
+                }
             } else {
                 checkoutTag(tags, 0, repoName, index)
                 logger.error('repoName ' + repoName + ' was updated')
@@ -104,12 +105,18 @@ function checkoutTag(tags, i, repoName, index) {
                 if(i+1 < tags.all.length) {
                     checkoutTag(tags, i + 1, repoName, index)
                 } else {
+                    logger.error('about to delete ' + baseDir + '/' + mainRepo + '/specs/' + repoName)
+                    fse.emptyDirSync(baseDir + '/' + mainRepo + '/specs/' + repoName);
+                    logger.error('about to copy ' + baseDir + '/tags/' + repoName + '/' + tags.all[i] + '/docs')
+                    fse.copySync(baseDir + '/tags/' + repoName + '/' + tags.all[i] + '/docs',
+                        baseDir + '/' + mainRepo + '/specs/' + repoName);
                     gitPullNextRepo(index + 1)
                 }
             })
         })
 
 }
+
 
 function cleanUpSpecs(index) {
 
@@ -130,7 +137,7 @@ function copyFromDocs(index) {
     var repoName = repoNames[index];
 
     logger.error('about to copy ' + baseDir + repoNames[0] + '/specs/' + repoName)
-    fse.copySync(baseDir + '/tags/' + repoName + '/docs',
+    fse.copySync(baseDir + repoName + '/docs',
         baseDir + repoNames[0] + '/specs/' + repoName);
 
     if (index + 1 < repoNames.length) {
