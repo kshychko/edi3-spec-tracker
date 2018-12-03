@@ -98,7 +98,8 @@ function checkoutTag(tags, i, repoName) {
         .clone('git@github.com:edi3/' + repoName + '.git', tags.all[i], function () {
             logger.error('Cloned ' + repoName + ' into ' + tags.all[i]);
         })
-        .exec(
+        /*.exec(
+            logger.error('Checking out ' + repoName + ' tag ' + tags.all[i])
             require('simple-git')(baseDir + '/tags/' + repoName + '/' + tags.all[i])
                 .checkout(tags.all[i]).then(function () {
                 logger.error('Checked out... ' + repoName  + ' tag ' + tags.all[i]);
@@ -106,7 +107,7 @@ function checkoutTag(tags, i, repoName) {
                     checkoutTag(tags, i + 1)
                 }
             })
-        )
+        )*/
 
 }
 
