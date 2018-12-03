@@ -109,8 +109,14 @@ function checkoutTag(tags, i, repoName, index) {
                     fse.emptyDirSync(baseDir + '/' + mainRepo + '/specs/' + repoName);
                     logger.error('about to copy ' + baseDir + '/tags/' + repoName + '/' + tags.all[i] + '/docs')
                     fse.copySync(baseDir + '/tags/' + repoName + '/' + tags.all[i] + '/docs',
-                        baseDir + '/' + mainRepo + '/specs/' + repoName);
-                    gitPullNextRepo(index + 1)
+                        baseDir + '/' + mainRepo + '/specs/' + repoName+ '/' + tags.all[i]);
+                    if (index + 1 < repoNames.length) {
+
+                        gitPullNextRepo(index + 1)
+
+                    } else {
+                        copyFromDocs()
+                    }
                 }
             })
         })
@@ -118,23 +124,8 @@ function checkoutTag(tags, i, repoName, index) {
 }
 
 
-function cleanUpSpecs(index) {
-
-    var repoName = repoNames[index];
-
-    logger.error('about to delete ' + baseDir + repoNames[0] + '/specs/' + repoName)
-    fse.emptyDirSync(baseDir + repoNames[0] + '/specs/' + repoName);
-
-    if (index + 1 < repoNames.length) {
-        cleanUpSpecs(index + 1)
-    } else {
-        //copy from docs
-        copyFromDocs(1);
-    }
-}
-
-function copyFromDocs(index) {
-    var repoName = repoNames[index];
+function copyFromDocs(/*index*/) {
+    /*var repoName = repoNames[index];
 
     logger.error('about to copy ' + baseDir + repoNames[0] + '/specs/' + repoName)
     fse.copySync(baseDir + repoName + '/docs',
@@ -144,9 +135,11 @@ function copyFromDocs(index) {
 
         copyFromDocs(index + 1)
 
-    } else {
+    } else {*/
 
+/*
         processAPI();
+*/
 
         var exitCode = execSync('bash sh/jekyll-build.sh'
             + ' -t ' + 'edi3.github.io');
@@ -183,7 +176,9 @@ function copyFromDocs(index) {
                     logger.error("Push is finished");
             });
         }
+/*
     }
+*/
 }
 
 function processAPI() {
