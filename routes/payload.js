@@ -84,6 +84,8 @@ function gitPullNextRepo(index) {
                 if (index + 1 < repoNames.length) {
                     logger.error('repoName has no tags - skipping')
                     gitPullNextRepo(index + 1)
+                } else {
+                    copyFromDocs()
                 }
             } else {
                 logger.error('about to delete ' + baseDir + '/' + mainRepo + '/specs/' + repoName)
@@ -103,15 +105,14 @@ function checkoutTag(tags, i, repoName, index) {
             require('simple-git')(baseDir + '/tags/' + repoName + '/' + tags.all[i])
                 .checkout(tags.all[i]).then(function () {
                 logger.error('Checked out... ' + repoName  + ' tag ' + tags.all[i]);
+                logger.error('about to copy ' + baseDir + 'tags/' + repoName + '/' + tags.all[i] + '/docs')
+                fse.copySync(baseDir + '/tags/' + repoName + '/' + tags.all[i] + '/docs',
+                    baseDir + '/' + mainRepo + '/specs/' + repoName+ '/' + tags.all[i]);
                 if( i + 1 < tags.all.length) {
                     checkoutTag(tags, i + 1, repoName, index)
                 } else {
-                    logger.error('about to copy ' + baseDir + 'tags/' + repoName + '/' + tags.all[i] + '/docs')
-                    fse.copySync(baseDir + '/tags/' + repoName + '/' + tags.all[i] + '/docs',
-                        baseDir + '/' + mainRepo + '/specs/' + repoName+ '/' + tags.all[i]);
                     if (index + 1 < repoNames.length) {
                         gitPullNextRepo(index + 1)
-
                     } else {
                         copyFromDocs()
                     }
