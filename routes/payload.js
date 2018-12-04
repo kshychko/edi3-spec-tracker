@@ -70,12 +70,17 @@ var mainRepo = "edi3.github.io"
 var baseDir = '/opt/'
  /*var baseDir = 'd://work/aus-tp-github/'*/
 function gitPullNextRepo(index) {
-
+    if(index == 0){
+        fse.emptyDirSync(baseDir + '/tags');
+    }
     var repoName = repoNames[index];
 
     require('simple-git')(baseDir + repoName)
         .reset('hard', function () {
             logger.error('Reset repo before pull... ' + repoName);
+        })
+        .fetch(['--tags'], function () {
+            logger.error('Fetch tags from remote... ' + repoName);
         })
         .then(function () {
             logger.error('Starting pull... ' + repoName);
