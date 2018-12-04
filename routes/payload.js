@@ -70,9 +70,6 @@ var mainRepo = "edi3.github.io"
 var baseDir = '/opt/'
  /*var baseDir = 'd://work/aus-tp-github/'*/
 function gitPullNextRepo(index) {
-    if(index == 0){
-        fse.emptyDirSync(baseDir + '/tags');
-    }
     var repoName = repoNames[index];
 
     require('simple-git')(baseDir + repoName)
@@ -96,6 +93,8 @@ function gitPullNextRepo(index) {
             } else {
                 logger.error('about to delete ' + baseDir + '/' + mainRepo + '/specs/' + repoName)
                 fse.emptyDirSync(baseDir + mainRepo + '/specs/' + repoName);
+                logger.error('about to delete ' + baseDir + 'tags/' + repoName)
+                fse.emptyDirSync(baseDir + '/tags/' + repoName);
                 checkoutTag(tags, 0, repoName, index)
                 logger.error('repoName ' + repoName + ' was updated')
             }
