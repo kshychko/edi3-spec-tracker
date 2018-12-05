@@ -76,6 +76,12 @@ function gitPullNextRepo(index) {
         .reset('hard', function () {
             logger.error('Reset repo before pull... ' + repoName);
         })
+        .pull(function (err, update) {
+            logger.error('repoName ' + repoName + ' was updated')
+        })
+        .then(function () {
+            logger.error(repoName + ' pull done.');
+        })
         .fetch(['--tags'], function () {
             logger.error('Fetch tags from remote... ' + repoName);
         })
