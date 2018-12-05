@@ -174,14 +174,15 @@ function copyFromDocs(/*index*/) {
         } else {
             logger.error("Jekyll build is finished. Commit and push changes.", "Jekyll build is finished. Commit and push changes.");
 
-            require('simple-git')(baseDir + repoNames[0])
+            require('simple-git')(baseDir + mainRepo)
                 .then(function () {
-                    logger.error('Starting push... ' + repoNames[0]);
+                    logger.error('Starting push... ' +mainRepo);
                 })
                 .addConfig('user.name', 'Specification Generator')
                 .addConfig('user.email', 'specs.generator@edi3.org')
-                .add(baseDir + repoNames[0] + '/specs/*')
+                .add(baseDir + mainRepo + '/specs/*')
                 .commit("update specifications pages")
+                .pull('origin', 'master', '--rebase')
                 .push(['-u', 'origin', 'master'], function () {
                     logger.error("Push is finished");
             });
