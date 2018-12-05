@@ -10,7 +10,7 @@ REPO_NAMES=("edi3.github.io" "edi3-api-conformance" "edi3-api-ndr" "edi3-descrip
             "edi3-events" "edi3-finance" "edi3-identity" "edi3-json-ld-ndr" 
             "edi3-model-interchange" "edi3-notary" "edi3-regulatory" "edi3-trade"
             "edi3-transport" "edi3-uml-profile" "edi3-unlocode"
-            "edi3-invoice" "edi3-order")
+            "edi3-invoice" "edi3-order" "edi3-dictionary")
 
 ## now loop through the above array
 for i in "${REPO_NAMES[@]}"
