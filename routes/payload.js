@@ -89,7 +89,7 @@ function gitPullNextRepo(index) {
             logger.error('Starting pull... ' + repoName);
         })
         .tags(function (err, tags) {
-            tags.push("master");
+            tags.all.push("master");
             if(tags.all.length == 0) {
                 if (index + 1 < repoNames.length) {
                     logger.error('repoName has no tags - skipping')
