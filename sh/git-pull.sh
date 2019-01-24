@@ -31,7 +31,7 @@ fi
 REPO_NAMES=("edi3-api-conformance" "edi3-api-ndr" "edi3-description" "edi3-discovery" 
             "edi3-events" "edi3-finance" "edi3-identity" "edi3-json-ld-ndr" 
             "edi3-model-interchange" "edi3-notary" "edi3-regulatory" "edi3-trade"
-            "edi3-transport" "edi3-uml-profile" "edi3-unlocode")
+            "edi3-transport" "edi3-uml-profile" "edi3-unlocode" "edi3-codelists")
 
 ## now loop through the above array
 for i in "${REPO_NAMES[@]}"
