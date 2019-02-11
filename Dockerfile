@@ -20,6 +20,7 @@ RUN npm config set unsafe-perm true
 RUN npm install yamljs -g --silent
 RUN npm install swagger2aglio -g --silent
 RUN npm install forever -g --silent
+RUN npm install redoc-cli -g --silent
 
 WORKDIR $APP_HOME
 ADD . $APP_HOME/

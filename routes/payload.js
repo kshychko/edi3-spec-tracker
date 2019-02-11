@@ -120,6 +120,10 @@ function checkoutTag(tags, i, repoName, index) {
                 logger.error('about to copy ' + baseDir + 'tags/' + repoName + '/' + tags.all[i] + '/docs')
                 fse.copySync(baseDir + '/tags/' + repoName + '/' + tags.all[i] + '/docs',
                     baseDir + '/' + mainRepo + '/specs/' + repoName+ '/' + tags.all[i]);
+                var exitCode = execSync('cd ' + baseDir + '/' + mainRepo + '/specs/' + repoName+ '/' + tags.all[i] +
+                    'bash redoc-cli swagger.yml  -t custom.hbs --templateOptions.metaDescription "' + repoName + ' - '+ tags.all[i] + '"');
+
+                logger.error("exitCode " + exitCode.status);
                 if( i + 1 < tags.all.length) {
                     checkoutTag(tags, i + 1, repoName, index)
                 } else {
