@@ -90,6 +90,7 @@ function gitPullNextRepo(index) {
         })
         .tags(function (err, tags) {
             tags.all.push("master");
+            tags.all.push("develop");
             if(tags.all.length == 0) {
                 if (index + 1 < repoNames.length) {
                     logger.error('repoName has no tags - skipping')
